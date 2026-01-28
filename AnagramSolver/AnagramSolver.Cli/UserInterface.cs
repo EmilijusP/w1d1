@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using AnagramSolver.BusinessLogic.Services;
 
 namespace AnagramSolver.Cli
 {
@@ -11,11 +12,12 @@ namespace AnagramSolver.Cli
     {
         public List<string> userWords = new List<string>();
         private readonly int _minWordLength;
-        private bool toBreak = true;
+        private InputValidation _wordsValidation;
 
-        public UserInterface(int minWordLength)
+        public UserInterface(int minWordLength, InputValidation wordsValidation)
         {
             _minWordLength = minWordLength;
+            _wordsValidation = wordsValidation;
         }
 
         public List<string> ReadInput()
@@ -24,19 +26,13 @@ namespace AnagramSolver.Cli
             {
                 Console.WriteLine($"Enter the word/words containing {_minWordLength} letters or more: ");
                 var input = Console.ReadLine();
-
-                toBreak = true;
-                foreach (string word in input.Split())
-                {
-                    if (word.Length < _minWordLength)
-                        toBreak = false;
-
-                }
-                if (toBreak)
+                if (_wordsValidation.IsValidInput(input, _minWordLength))
                 {
                     userWords = input.Split().ToList();
+                    break;
                 }
-            } while (!toBreak);
+
+            } while (true);
 
             return userWords;
         }

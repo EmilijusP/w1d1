@@ -16,7 +16,7 @@ namespace AnagramSolver.BusinessLogic.Data
         {
             var words = new HashSet<WordModel>();
 
-            var textLines = new List<string> { };
+            var textLines = new List<string>();
 
             textLines = File.ReadAllLines(_filePath).ToList();
 
