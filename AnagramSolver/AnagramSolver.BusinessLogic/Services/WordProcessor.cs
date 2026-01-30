@@ -12,8 +12,8 @@ namespace AnagramSolver.BusinessLogic.Services
         public Dictionary<char, int> CreateCharCount(string stringToProcess)
         {
             var charDictionary = new Dictionary<char, int>();
-
-            foreach (var character in stringToProcess)
+            stringToProcess = RemoveWhitespace(stringToProcess);
+            foreach (var character in stringToProcess.ToLower())
             {
                 if (!charDictionary.ContainsKey(character))
                     charDictionary[character] = 0;
@@ -23,9 +23,14 @@ namespace AnagramSolver.BusinessLogic.Services
             return charDictionary;
         }
 
-        public string SortString(string unsortedString)
+        public string SortString(string stringToProcess)
         {
-            char[] arr = unsortedString.ToCharArray();
+            if (string.IsNullOrEmpty(stringToProcess))
+                return "";
+
+            stringToProcess = RemoveWhitespace(stringToProcess);
+
+            char[] arr = stringToProcess.ToCharArray();
             Array.Sort(arr);
             string sortedString = new string(arr);
             return sortedString;
@@ -33,7 +38,14 @@ namespace AnagramSolver.BusinessLogic.Services
 
         public string RemoveWhitespace(string stringToProcess)
         {
-            return stringToProcess.Replace(" ", "");
+            if (string.IsNullOrEmpty(stringToProcess))
+                return "";
+
+            var result = new string(stringToProcess.Where(c => !char.IsWhiteSpace(c)).ToArray());
+
+            return result;
         }
+
+        
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VD6GtVHdopM=",
+  "dgSpecHash": "2h9b7a3HZNM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AngramSolver.Tests\\AnagramSolver.Tests.csproj",
+  "projectFilePath": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AngramSolver.Tests\\AnagramSolver.BusinessLogic.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",

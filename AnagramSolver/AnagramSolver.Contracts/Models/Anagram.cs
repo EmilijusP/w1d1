@@ -2,7 +2,7 @@
 {
     public class Anagram
     {
-        public string? Key { get; set; }
+        public string? Key { get; set; }  
 
         public Dictionary<char, int>? KeyCharCount { get; set; }
 

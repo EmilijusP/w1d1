@@ -7,7 +7,7 @@ using FluentAssertions;
 
 namespace AnagramSolver.Tests
 {
-    public class AnagramSolverLogicTests
+    public class AnagramSolverTests
     {
         private readonly Mock<IWordProcessor> _mockWordProcessor;
         private readonly Mock<IAnagramDictionaryService> _mockDictionaryService;
@@ -16,7 +16,7 @@ namespace AnagramSolver.Tests
         private readonly AnagramSolverLogic _systemUnderTest;
         private const int _anagramCount = 1;
 
-        public AnagramSolverLogicTests()
+        public AnagramSolverTests()
         {
             _mockWordProcessor = new Mock<IWordProcessor>();
             _mockDictionaryService = new Mock<IAnagramDictionaryService>();
