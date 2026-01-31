@@ -6,7 +6,6 @@ namespace AnagramSolver.BusinessLogic.Tests;
 
 public class WordProcessorTests
 {
-    //arrange
     private readonly IWordProcessor _wordProcessor;
 
     public WordProcessorTests()

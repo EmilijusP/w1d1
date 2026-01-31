@@ -5,6 +5,14 @@ namespace AnagramSolver.BusinessLogic.Tests;
 
 public class InputValidationTests
 {
+    private readonly InputValidation _inputValidation;
+
+    public InputValidationTests()
+    {
+        _inputValidation = new InputValidation();
+    }
+
+
     [Theory]
     [InlineData (3, "test", true)]
     [InlineData(4, "test", true)]
@@ -19,10 +27,9 @@ public class InputValidationTests
     public void IsValidInput_VariousInputs_ReturnsExpectedOutput(int minWordLength, string input, bool expectedOutput)
     {
         //arrange
-        var inputValidation = new InputValidation();
 
         //act
-        var result = inputValidation.IsValidInput(input, minWordLength);
+        var result = _inputValidation.IsValidInput(input, minWordLength);
 
         //assert
         result.Should().Be(expectedOutput);

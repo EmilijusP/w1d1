@@ -8,6 +8,15 @@ namespace AnagramSolver.BusinessLogic.Tests;
 
 public class AnagramDictionaryServiceTests
 {
+    private readonly Mock<IWordProcessor> _mockWordProcessor;
+    private readonly IAnagramDictionaryService _anagramDictionaryService;
+
+    public AnagramDictionaryServiceTests()
+    {
+        _mockWordProcessor = new Mock<IWordProcessor>();
+        _anagramDictionaryService = new AnagramDictionaryService(_mockWordProcessor.Object);
+    }
+
     [Theory]
     [InlineData ("test", "sett", "estt")]
     public void CreateAnagrams_GivenTwoAnagrams_ReturnsThemUnderTheSame(string fakeWord1, string fakeWord2, string sortedFakeWord)
@@ -26,12 +35,10 @@ public class AnagramDictionaryServiceTests
             ['t'] = 2
         };
 
-        var mockWordProcessor = new Mock<IWordProcessor>();
+        _mockWordProcessor.Setup(p => p.SortString(fakeWord1)).Returns(sortedFakeWord);
+        _mockWordProcessor.Setup(p => p.SortString(fakeWord2)).Returns(sortedFakeWord);
 
-        mockWordProcessor.Setup(p => p.SortString(fakeWord1)).Returns(sortedFakeWord);
-        mockWordProcessor.Setup(p => p.SortString(fakeWord2)).Returns(sortedFakeWord);
-
-        mockWordProcessor.Setup(p => p.CreateCharCount(sortedFakeWord)).Returns(dummyCharCount);
+        _mockWordProcessor.Setup(p => p.CreateCharCount(sortedFakeWord)).Returns(dummyCharCount);
 
         var expectedResult = new List<Anagram>
         {
@@ -43,10 +50,8 @@ public class AnagramDictionaryServiceTests
             }
         };
 
-        var anagramDictionaryService = new AnagramDictionaryService(mockWordProcessor.Object);
-
         //act
-        var result = anagramDictionaryService.CreateAnagrams(dummyWordModels);
+        var result = _anagramDictionaryService.CreateAnagrams(dummyWordModels);
 
         //assert
         result.Should().BeEquivalentTo(expectedResult);
