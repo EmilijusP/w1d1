@@ -14,11 +14,32 @@ public class AnagramAlgorithmTests
         _anagramAlgorithm = new AnagramAlgorithm();
     }
 
-    public static IEnumerable<object[]> GetAnagramTestData()
+    public static IEnumerable<object[]> GetAnagramCombinationsTestData()
     {
+        var targetLetters = new Dictionary<char, int>
+        {
+            ['t'] = 2,
+            ['e'] = 1,
+            ['s'] = 1
+        };
+
+        var possibleAnagrams = new List<Anagram>
+        {
+            new Anagram { Key = "estt", KeyCharCount = new Dictionary<char, int> {['e']=1, ['s']=1, ['t']=2} },
+            new Anagram { Key = "est", KeyCharCount = new Dictionary<char, int> {['e']=1, ['s']=1, ['t']=1} },
+            new Anagram { Key = "es", KeyCharCount = new Dictionary<char, int> {['e']=1, ['s']=1} },
+            new Anagram { Key = "tt", KeyCharCount = new Dictionary<char, int> {['t']=2} },
+            new Anagram { Key = "t", KeyCharCount = new Dictionary<char, int> {['t']=1} }
+        };
+
         yield return new object[] 
         { 
-            1, 
+            targetLetters,
+
+            1,
+            
+            possibleAnagrams,
+
             new List<List<string>> 
             { 
                 new List<string> { "estt" } 
@@ -26,7 +47,12 @@ public class AnagramAlgorithmTests
         };
         yield return new object[] 
         { 
-            2, 
+            targetLetters,
+
+            2,
+            
+            possibleAnagrams,
+
             new List<List<string>> 
             { 
                 new List<string> { "estt" }, 
@@ -36,7 +62,12 @@ public class AnagramAlgorithmTests
         };
         yield return new object[] 
         { 
-            0, 
+            targetLetters,
+
+            0,
+            
+            possibleAnagrams,
+
             new List<List<string>> 
             { 
                 new List<string> { } 
@@ -45,37 +76,84 @@ public class AnagramAlgorithmTests
     }
 
     [Theory]
-    [MemberData(nameof(GetAnagramTestData))]
-    public void FindKeyCombinations(int maxWords, List<List<string>> expectedResult)
+    [MemberData(nameof(GetAnagramCombinationsTestData))]
+    public void FindKeyCombinations_VariousInputs_ReturnsExpectedResult(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams, List<List<string>> expectedResult)
     {
         //arrange
-        var dummyTargetLetters = new Dictionary<char, int>
-        {
-            ['t'] = 2,
-            ['e'] = 1,
-            ['s'] = 1
-        };
-
-        var dummyCharCount = new Dictionary<char, int>
-        {
-            ['e'] = 1,
-            ['s'] = 1,
-            ['t'] = 2
-        };
-
-        var dummyPossibleAnagrams = new List<Anagram>
-        {
-            new Anagram { Key = "estt", KeyCharCount = new Dictionary<char, int> {['e']=1, ['s']=1, ['t']=2} },
-            new Anagram { Key = "est", KeyCharCount = new Dictionary<char, int> {['e']=1, ['s']=1, ['t']=1} },
-            new Anagram { Key = "es", KeyCharCount = new Dictionary<char, int> {['e']=1, ['s']=1} },
-            new Anagram { Key = "tt", KeyCharCount = new Dictionary<char, int> {['t']=2} },
-            new Anagram { Key = "t", KeyCharCount = new Dictionary<char, int> {['t']=1} }
-        };
 
         //act
-        var result = _anagramAlgorithm.FindKeyCombinations(dummyTargetLetters, maxWords, dummyPossibleAnagrams);
+        var result = _anagramAlgorithm.FindKeyCombinations(targetLetters, maxWords, possibleAnagrams);
 
         //assert
         result.Should().BeEquivalentTo(expectedResult);
+    }
+
+    public static IEnumerable<object[]> GetCharCountTestData()
+    {
+        yield return new object[]
+        {
+            new Dictionary<char, int>
+            {
+                ['e'] = 1,
+                ['s'] = 1,
+                ['t'] = 2
+            },
+
+            new Dictionary<char, int>
+            {
+                ['e'] = 1,
+                ['s'] = 1,
+                ['t'] = 2
+            },
+
+            true
+        };
+
+        yield return new object[]
+        {
+            new Dictionary<char, int>
+            {
+                ['t'] = 2
+            },
+
+            new Dictionary<char, int>
+            {
+                ['e'] = 1,
+                ['s'] = 1,
+                ['t'] = 2
+            },
+
+            true
+        };
+
+        yield return new object[]
+        {
+            new Dictionary<char, int>
+            {
+                ['t'] = 3
+            },
+
+            new Dictionary<char, int>
+            {
+                ['e'] = 1,
+                ['s'] = 1,
+                ['t'] = 2
+            },
+
+            false
+        };
+    }
+
+    [Theory]
+    [MemberData(nameof(GetCharCountTestData))]
+    public void CanFitWithin_VariousInputs_ReturnsExpectedResult(Dictionary<char, int> dummyLetters, Dictionary<char, int> dummyTargetLetters, bool expectedResult)
+    {
+        //arrange
+
+        //act
+        var result = _anagramAlgorithm.CanFitWithin(dummyLetters, dummyTargetLetters);
+
+        //assert
+        result.Should().Be(expectedResult);
     }
 }

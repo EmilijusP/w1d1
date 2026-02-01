@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnagramSolver.BusinessLogic.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c3c4e173f96024679db1043b81a286e2aa9d8eb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0205f9a87bcc23dae2d939bbfb99c56c1dedeb21")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnagramSolver.BusinessLogic.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnagramSolver.BusinessLogic.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
