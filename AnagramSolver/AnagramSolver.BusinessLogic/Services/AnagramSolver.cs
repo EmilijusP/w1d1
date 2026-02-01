@@ -39,6 +39,8 @@ namespace AnagramSolver.BusinessLogic.Services
             var wordSet = _wordRepository.GetWords();
 
             var allAnagrams = _anagramDictonaryService.CreateAnagrams(wordSet);
+
+
             
             var possibleAnagrams = allAnagrams.Where(key => _anagramAlgorithm.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
 

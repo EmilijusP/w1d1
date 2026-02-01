@@ -210,4 +210,19 @@ public class AnagramAlgorithmTests
         //assert
         result.Should().BeEquivalentTo(expectedResult);
     }
+
+    [Theory]
+    [InlineData("test", 3, true)]
+    [InlineData("test", 4, true)]
+    [InlineData("test", 5, false)]
+    public void IsValidOutputLength(string key, int minOutputWordsLength, bool expectedOutput)
+    {
+        //arrange
+
+        //act
+        var result = _anagramAlgorithm.IsValidOutputLength(key, minOutputWordsLength, expectedOutput);
+
+        //assert
+        result.Should().Be(expectedResult);
+    }
 }
