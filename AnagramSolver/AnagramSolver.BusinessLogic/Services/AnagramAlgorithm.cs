@@ -15,8 +15,10 @@ namespace AnagramSolver.BusinessLogic.Services
         public List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams)
         {
             var results = new List<List<string>>();
-
-            RecursiveKeyFinder(targetLetters, maxWords, 0, possibleAnagrams, new List<string>(), results);
+            if (maxWords > 0)
+                RecursiveKeyFinder(targetLetters, maxWords, 0, possibleAnagrams, new List<string>(), results);
+            else
+                results = new List<List<string>> { { new List<string> { } } };
 
             return results;
         }
