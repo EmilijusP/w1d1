@@ -14,13 +14,15 @@ namespace AnagramSolver.BusinessLogic.Services
         private readonly IAnagramAlgorithm _anagramAlgorithm;
         private readonly IWordRepository _wordRepository;
         private readonly int _anagramCount;
+        private readonly int _minOutputWordsLength;
 
         public AnagramSolverLogic(
             IWordProcessor wordProcessor,
             IAnagramDictionaryService anagramDictionaryService,
             IAnagramAlgorithm anagramAlgorithm,
             IWordRepository wordRepository,
-            int anagramCount
+            int anagramCount,
+            int minOutputWordsLength
             )
         {
             _wordProcessor = wordProcessor;
@@ -28,6 +30,7 @@ namespace AnagramSolver.BusinessLogic.Services
             _anagramAlgorithm = anagramAlgorithm;
             _wordRepository = wordRepository;
             _anagramCount = anagramCount;
+            _minOutputWordsLength = minOutputWordsLength;
         }
 
         public IList<string> GetAnagrams(string userWords)
@@ -40,9 +43,9 @@ namespace AnagramSolver.BusinessLogic.Services
 
             var allAnagrams = _anagramDictonaryService.CreateAnagrams(wordSet);
 
-
+            var filteredAnagrams = allAnagrams.Where(key => _anagramAlgorithm.IsValidOutputLength(key.Key, _minOutputWordsLength));
             
-            var possibleAnagrams = allAnagrams.Where(key => _anagramAlgorithm.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
+            var possibleAnagrams = filteredAnagrams.Where(key => _anagramAlgorithm.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
 
             var keyCombinations = _anagramAlgorithm.FindKeyCombinations(inputCharCount, _anagramCount, possibleAnagrams);
 

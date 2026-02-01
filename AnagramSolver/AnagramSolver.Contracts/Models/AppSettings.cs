@@ -7,5 +7,8 @@
         public int MinInputWordsLength { get; set; }
 
         public string FilePath { get; set; } = string.Empty;
+
+        public int MinOutputWordsLength { get; set; }
+
     }
 }
